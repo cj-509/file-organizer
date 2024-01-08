@@ -1,4 +1,5 @@
 import os
+import shutil
 #======== a script that manage files
 
 
@@ -41,7 +42,7 @@ def is_document(file):
     return os.path.splitext(file)[1] in doc
 
 def is_data(file):
-    return os.path.splitext(file)[1] in 
+    return os.path.splitext(file)[1] in data 
 
 input_path = input("Enter files location: ")
 
@@ -51,8 +52,24 @@ if not input_path:
     change_to_dir = f"/home/{curent_user}/Downloads"
     os.chdir(change_to_dir)
     #print(os.getcwd())
+    for file in os.listdir():
+        if is_data(file):
+            dataPath = f"/home/{curent_user}/Data"
+            if not os.path.exists(dataPath):
+                os.mkdir(dataPath)
+            shutil.move(file, dataPath)
 
+        elif is_Document(file):
+            path_to_document = f"/home/{curent_user}/Document"
+            shutil.move(file, path_to_document)
 
+        elif is_screenshot(file):
+            path_to_screen_shot = f"~/Screenshots"
+            if not os.path.exists(path_to_screenshot):
+                os.mkdir(path_to_screenshot)
+            shutil.move(file, path_to_screenshot)
+
+        elif
 else:
     try:
         os.path.isdir(input_path)
