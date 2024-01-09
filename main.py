@@ -64,14 +64,26 @@ if not input_path:
             shutil.move(file, path_to_document)
 
         elif is_screenshot(file):
-            path_to_screen_shot = f"~/Screenshots"
+            path_to_screen_shot = f"/home/{curent_user}/Screenshots"
             if not os.path.exists(path_to_screenshot):
                 os.mkdir(path_to_screenshot)
             shutil.move(file, path_to_screenshot)
 
-        elif
+        elif is_image(file):
+            image_path = f"/home/{curent_user}/Image"
+            if not os.path.exists(image_path):
+                os.mkdir(image_path)
+            shutil.move(file, image_path)
+        elif is_video(file):
+            vid_path = f"/home/{curent_user}/Videos"
+            shutil.move(file, vid_path)
+        elif is_audio(file):
+            audio_path = f"/home/{curent_user}/Music"
+            shutill.move(file, audio_path)
 else:
     try:
-        os.path.isdir(input_path)
+        os.chdir(input_path)
+        print(os.getcwd())
+        print(os.listdir())
     except OSError as e:
-        print("Error")
+        print("Error: ", e)
