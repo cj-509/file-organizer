@@ -46,9 +46,9 @@ def is_data(file):
 
 input_path = input("Enter files location: ")
 
+curent_user = os.environ.get('USER') or os.environ.get('LOGNAME') #get the user's using the system
 
 if not input_path:
-    curent_user = os.environ.get('USER') or os.environ.get('LOGNAME')
     change_to_dir = f"/home/{curent_user}/Downloads"
     os.chdir(change_to_dir)
     #print(os.getcwd())
@@ -59,12 +59,12 @@ if not input_path:
                 os.mkdir(dataPath)
             shutil.move(file, dataPath)
 
-        elif is_Document(file):
+        elif is_document(file):
             path_to_document = f"/home/{curent_user}/Document"
             shutil.move(file, path_to_document)
 
         elif is_screenshot(file):
-            path_to_screen_shot = f"/home/{curent_user}/Screenshots"
+            path_to_screenshot = f"/home/{curent_user}/Screenshots"
             if not os.path.exists(path_to_screenshot):
                 os.mkdir(path_to_screenshot)
             shutil.move(file, path_to_screenshot)
@@ -79,11 +79,39 @@ if not input_path:
             shutil.move(file, vid_path)
         elif is_audio(file):
             audio_path = f"/home/{curent_user}/Music"
-            shutill.move(file, audio_path)
+            shutil.move(file, audio_path)
 else:
     try:
         os.chdir(input_path)
-        print(os.getcwd())
-        print(os.listdir())
+        #print(os.getcwd())
+        #print(os.listdir())
+        for file in os.listdir(): 
+            if is_audio(file):
+                 audio_p = f"/home/{curent_user}/Music"
+                 shutil.move(file, audio_p)
+            elif is_video(file):
+                video_path = f"/home/{curent_user}/Videos"
+                shutil.move(file, video_path)
+
+            elif is_image(file):
+                img_path = f"/home/{curent_user}/Pictures"
+                shutil.move(file, img_path)
+
+            elif is_screenshot(file):
+                scrn_shot = f"/home/{curent_user}/Screenhot"
+                if not os.path.exists(scrn_shot):
+                    os.mkdir(scrn_shot)
+                shutil.move(file, scrn_shot)
+
+            elif is_document(file):
+                doc_path = f"/home/{curent_user}/Document"
+                shutil.move(file, doc_path)
+
+            elif is_data(file):
+                data_path = f"/home/{curent_user}/Data"
+                if not os.path.exists(data_path):
+                    os.mkdir(data_path)
+                shutil.move(file, data_path)
+
     except OSError as e:
         print("Error: ", e)
